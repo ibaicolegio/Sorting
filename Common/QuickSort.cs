@@ -12,30 +12,42 @@ namespace Common
             int pivotPos = firstIndex;
             if (firstIndex == lastIndex)
                 return pivotPos;
-            for (int i = 0; i < A.Length; i++)
+            for (int i = firstIndex; i <= lastIndex; i++)
             {
                 if(A[pivotPos] > A[i])
                 {
-                    Swap(A, pivotPos, lastIndex);
+                    Move(A, pivotPos, i);
                     pivotPos++;
                 }
                 
             }
+
             return pivotPos;
         }
 
-        private void Swap(int[] a, int pivot, int i)
+        private void Move(int[] a, int pivot, int lastIndex)
         {
-            int aux = a[pivot];
-            a[pivot] = a[i];
-            a[i] = aux;
+            int aux = a[lastIndex];
+            for(int j = lastIndex; j > pivot; j--)
+            {
+                a[j] = a[j-1];
+            }
+            a[pivot] = aux;
+            
         }
+
 
         public void Sort(int[] A, int firstIndex, int lastIndex)
         {
             //TODO #2: Implement QuickSort using the method above
             //         a) Partition the array
             //         b) Recursively order the elements before the pivot, and after the pivot
+            int pos=Partition(A, firstIndex, lastIndex);
+            if(pos > 0 && firstIndex<pos-1)
+                Sort(A,firstIndex,pos-1);
+            if(pos < A.Length && lastIndex > pos+1)
+                Sort(A, pos+1, lastIndex);
+
 
         }
 
