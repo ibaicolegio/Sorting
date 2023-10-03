@@ -10,19 +10,67 @@ namespace Common
         {
             //TODO #1: return a new array with all elements in A from index startIndex to endIndex (both included): A[startIndex..endIndex]
 
-            int[] partition = null;
+            int[] partition = new int[endIndex-startIndex+1];
+            int cant=0;
+            for (int i = startIndex; i <= endIndex; i++)
+            {
+                partition[cant]=A[i];
+                cant++;
+            }
             return partition;
         }
 
         public void MergePartitions(int[] A, int[] leftPartition, int[] rightPartition)
         {
             //TODO #2: Merge in A the two partitions sorting them
-            
+            int total = leftPartition.Length + rightPartition.Length;
+            int left = 0;
+            int right = 0;
+            for (int i = 0; i < total; i++)
+            {
+                if(left < leftPartition.Length && right < rightPartition.Length)
+                {
+                    if (leftPartition[left] < rightPartition[right])
+                    {
+                        A[i] = leftPartition[left];
+                        left++;
+                    }
+                    else
+                    {
+                        A[i] = rightPartition[right];
+                        right++;
+                    }
+                }
+                else if (left < leftPartition.Length)
+                {
+                    A[i] = leftPartition[left];
+                    left++;
+                }
+                else
+                {
+                    A[i] = rightPartition[right];
+                    right++;
+                }
+                
+            }
         }
 
         public void Sort(int[] A)
         {
             //TODO #3: Implement MergeSort using the methods above
+            int half = A.Length / 2;
+            int[] left = Partition(A, 0, half-1);
+            int[] right = Partition(A, half, A.Length-1);
+            if(left.Length> 1)
+            {
+                Sort(left);
+            }
+            if(right.Length> 1)
+            {
+                Sort(right);
+            }
+            MergePartitions(A, left, right);
+
         }
 
         public bool CheckIsCorrect()

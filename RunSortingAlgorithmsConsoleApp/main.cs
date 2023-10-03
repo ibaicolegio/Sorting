@@ -38,8 +38,8 @@ class MainClass
 
     public static void Main(string[] args)
     {
-        TestSortingAlgorithm(new SelectionSort());
-        TestSortingAlgorithm(new QuickSort());
+        //TestSortingAlgorithm(new SelectionSort());
+        //TestSortingAlgorithm(new QuickSort());
         TestSortingAlgorithm(new MergeSort());
     }
 }
